@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="description" content="Degree - Material Design Admin Template with AngularJS, Angular Material Framework and other third party libaries.">
+	<meta name="description" content="iExcuse">
 	<meta name="author" content="solutionportal">
 	<!-- <base href="/"> -->
 
-	<title>Degree | Material Design Admin Template with AngularJS</title>
+	<title>iExcuse</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
 	<link rel="stylesheet" href="/public/dist/main.css" />
 </head>

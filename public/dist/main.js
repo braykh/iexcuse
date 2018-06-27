@@ -15,6 +15,7 @@
         'app.ctrls',
         'app.directives',
         'app.services',
+        'app.users.ctrls',
         // ui
         'app.ui.ctrls',
         // forms
@@ -95,7 +96,9 @@
             'forms/elements', 'forms/validation', 'forms/uploader',
             'tables',
             'charts/c3', 'charts/sparklines',
-            'pages/signin', 'pages/register', 'pages/forget-pass', 'pages/404', 'pages/timeline', 'pages/search', 'pages/invoice'
+            'pages/signin', 'pages/register', 'pages/forget-pass', 'pages/404', 'pages/timeline', 'pages/search', 'pages/invoice',
+            'users'
+
         ];
 
         function setRoutes(route) {
@@ -482,6 +485,18 @@
             then(function(data, status, headers, config) {
                 User.set(data.data);
                 scope.user = User;
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
+        scope.list_users = function (){
+            var deffered = $q.defer();
+            $http({method: 'GET', url: appConfig.apiBaseUrl + 'users/all_users'}).
+            then(function(data, status, headers, config) {
                 deffered.resolve(data.data);
             }).
             catch(function(data, status, headers, config) {
@@ -1111,3 +1126,19 @@
 
 
 }())
+;;(function() {
+    'use strict';
+
+    angular.module('app.users.ctrls', [])
+
+
+    .controller('UsersCtrl', ['$scope', 'AuthService', function($scope, AuthService) {
+
+        AuthService.list_users().then(function (data){
+            $scope.users = data;
+        });
+
+    }])
+
+
+})()

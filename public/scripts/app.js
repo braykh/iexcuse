@@ -15,6 +15,7 @@
         'app.ctrls',
         'app.directives',
         'app.services',
+        'app.users.ctrls',
         // ui
         'app.ui.ctrls',
         // forms
@@ -95,7 +96,9 @@
             'forms/elements', 'forms/validation', 'forms/uploader',
             'tables',
             'charts/c3', 'charts/sparklines',
-            'pages/signin', 'pages/register', 'pages/forget-pass', 'pages/404', 'pages/timeline', 'pages/search', 'pages/invoice'
+            'pages/signin', 'pages/register', 'pages/forget-pass', 'pages/404', 'pages/timeline', 'pages/search', 'pages/invoice',
+            'users'
+
         ];
 
         function setRoutes(route) {

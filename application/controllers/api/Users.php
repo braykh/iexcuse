@@ -5,7 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // This can be removed if you use __autoload() in config.php OR use Modular Extensions
 /** @noinspection PhpIncludeInspection */
 require APPPATH . '/libraries/REST_Controller.php';
-
+require_once APPPATH . '/libraries/JWT.php';
+use \Firebase\JWT\JWT;
 /**
  * This is an example of a few basic user interaction methods you could use
  * all done with a hardcoded array
@@ -25,7 +26,7 @@ class Users extends \Restserver\Libraries\REST_Controller {
         parent::__construct();
         $this->load->model('users_model');
         $this->load->library('session');
-
+        $this->load->helper('cookie');
     }
 
     public function all_users_get()
@@ -35,6 +36,13 @@ class Users extends \Restserver\Libraries\REST_Controller {
     }
 
     public function get_current_get(){
+        // var_dump($this->session->userdata['user_email']);
+        // var_dump( $this->input->cookie('remember_me',true) );
+        // var_dump($this->session->userdata('id_token'));
+        // $jwt = $this->session->userdata('id_token');
+        // $decoded = JWT::decode($jwt, "my Secret key!", array('HS256'));
+        // var_dump($decoded);
+        
         $user_id = $this->session->userdata('user_id');
         $user_email = $this->session->userdata('user_email');
         if( $user_id && $user_email){
@@ -61,11 +69,11 @@ class Users extends \Restserver\Libraries\REST_Controller {
     public function register_get(){
         // $data = $this->post();
         $data = array(
-            'email' => 'elik101@gmail.com',
-            'first_name' => 'Elik',
-            'last_name' => 'Kazav',
+            'email' => 'yehudit@test.com',
+            'first_name' => 'Yehudit',
+            'last_name' => 'Braykh',
             'role' => 'admin',
-            'password' => md5('elik101')
+            'password' => md5('braykh123')
         );
 
         $this->response($this->users_model->register($data),200);

@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once APPPATH . '/libraries/JWT.php';
+use \Firebase\JWT\JWT;
 
 class Welcome extends CI_Controller {
 
@@ -11,6 +13,7 @@ class Welcome extends CI_Controller {
 		$this->load->helper('url');
         $this->load->library('form_validation');
         $this->config->load('config', FALSE, TRUE);
+        $this->load->model('users_model');
 	}
 
 	/**
@@ -40,26 +43,24 @@ class Welcome extends CI_Controller {
                 $this->load->view('login');
             }
         } else {
-            $user_data = array(
-            	'email' => $this->input->post('email'),
-            	'password' => md5($this->input->post('password'))
-            );
+            $email = $this->input->post('email');
+            $password = md5($this->input->post('password'));
+            
+            $user = $this->users_model->login($email, $password);
 
-            $this->db->where('email', $user_data['email']);
-			$this->db->where('password', $user_data['password']);
-	        $query = $this->db->get('users');
-	        $data = $query->result_array();
-	        if( !empty($data) ){
-	        	$result = TRUE;	
-	        }else{
-	        	$result = FALSE;
-	        }
-
-            if ($result == TRUE) {
+            if (!empty($user)) {
                 // Add user data in session
-                $this->session->set_userdata('user_id', $data[0]['id']);
-                $this->session->set_userdata('user_email', $data[0]['email']);
-                // $this->load->view('home');
+                $this->session->set_userdata('user_id', $user[0]['id']);
+                $this->session->set_userdata('user_email', $user[0]['email']);
+
+                $token['id'] = $user[0]['id'];
+	            $token['email'] = $user[0]['email'];
+	            $date = new DateTime();
+	            $token['iat'] = $date->getTimestamp();
+	            $token['exp'] = $date->getTimestamp() + 60*60*5;
+	            $output['id_token'] = JWT::encode($token, "my Secret key!");
+	            $this->session->set_userdata('id_token', $output['id_token']);
+
                 redirect( $this->config->item('base_url') );
 
             } else {

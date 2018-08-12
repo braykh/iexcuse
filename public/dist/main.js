@@ -493,9 +493,21 @@
             return deffered.promise;
         }
 
-        scope.list_users = function (){
+        scope.list_users = function (page, limit){
             var deffered = $q.defer();
-            $http({method: 'GET', url: appConfig.apiBaseUrl + 'users/all_users'}).
+            $http({method: 'GET', url: appConfig.apiBaseUrl + 'users/all_users?page=' + page + '&limit=' + limit}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
+        scope.user_count = function (){
+            var deffered = $q.defer();
+            $http({method: 'GET', url: appConfig.apiBaseUrl + 'users/users_count'}).
             then(function(data, status, headers, config) {
                 deffered.resolve(data.data);
             }).
@@ -1132,11 +1144,48 @@
     angular.module('app.users.ctrls', [])
 
 
-    .controller('UsersCtrl', ['$scope', 'AuthService', function($scope, AuthService) {
+    .controller('UsersCtrl', ['$scope', 'AuthService', '$timeout', function($scope, AuthService, $timeout) {
 
-        AuthService.list_users().then(function (data){
-            $scope.users = data;
+    	$scope.selected = [];
+        $scope.limitOptions = [1, 2];
+        $scope.query = {
+            order: 'id', limit: 1, page: 1
+        };
+
+    	$scope.listUsers = function(page, limit) {
+	        AuthService.list_users(page, limit).then(function (data){
+	            $scope.users = data;
+	            console.log($scope.users);
+	        });
+	    };
+	    
+	    $scope.listUsers(0, $scope.query.limit);    
+
+        AuthService.user_count().then(function (data){
+            $scope.users_count = data;
         });
+
+        $scope.options = {
+            rowSelection: true,
+            multiSelect: true,
+            autoSelect: true,
+            decapitate: false,
+            largeEditDialog: false,
+            boundaryLinks: true,
+            limitSelect: true,
+            pageSelect: true
+        };
+
+        $scope.onPaginate = function(page, limit) {
+            // console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
+            // console.log('Page: ' + page + ' Limit: ' + limit);
+            // console.log($scope.selected);
+
+            $scope.promise = $timeout(function () {
+            	$scope.listUsers(page - 1, limit);
+            }, 1000);
+        };
+
 
     }])
 

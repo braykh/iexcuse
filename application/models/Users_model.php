@@ -7,10 +7,15 @@ class Users_model extends CI_Model {
 		$this->load->library('session');
 	}
 	
-    function get_users () {
-        $query = $this->db->get('users');
+    function get_users ($page, $limit) {
+        $query = $this->db->get('users', $limit, $page);
         $data = $query->result_array();
         return $data;
+    }
+
+    function get_users_count () {
+        $query = $this->db->count_all('users');
+        return $query;
     }
 
     function get_current ($user_id, $user_email) {

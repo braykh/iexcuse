@@ -15,16 +15,16 @@
                     <table md-table md-row-select='options.rowSelection' multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
                         <thead ng-if="!options.decapitate" md-head md-order="query.order" md-or-reorder="onReorder">
                             <tr md-row>
-                                <th md-column md:order-by="id"><span>User ID</span></th>
-                                <th md-column md:order-by="first_name"><span>First Name</span></th>
-                                <th md-column md-numeric md-order-by="last_name"><span>Last Name</span></th>
-                                <th md-column md-numeric md-order-by="role"><span>Email</span></th>
-                                <th md-column md-numeric md-order-by="email"><span>Role</span></th>
-                                <th md-column md-numeric md-order-by="created" hide-sm>Created</th>
+                                <th md-column><span>User ID</span></th>
+                                <th md-column><span>First Name</span></th>
+                                <th md-column><span>Last Name</span></th>
+                                <th md-column><span>Email</span></th>
+                                <th md-column><span>Role</span></th>
+                                <th md-column>Created</th>
                             </tr>
                         </thead>
                         <tbody md-body>
-                            <tr md-row md-select="dessert" md-select-id="name" data-md-on-select="log" md-on-deselect="deselect" md-auto-select="options.autoSelect" data-ng-repeat="user in users | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+                            <tr md-row md-select="user" md-select-id="id" data-md-on-select="log" md-on-deselect="deselect" md-auto-select="options.autoSelect" data-ng-repeat="user in users | filter: filter.search | orderBy: query.order">
                                 <td md-cell>{{user.id}}</td>
                                 <!-- <td md-cell>
                                   <md-select ng-model="dessert.type" placeholder="Other">
@@ -35,12 +35,12 @@
                                 <td md-cell>{{user.last_name}}</td>
                                 <td md-cell>{{user.email}}</td>
                                 <td md-cell>{{user.role}}</td>
-                                <td md-cell hide-sm>{{user.created}}</td>
+                                <td md-cell>{{user.created}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </md-table-container>
-                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="onPaginate" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{users_count.count}}" md-on-paginate="onPaginate" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></md-table-pagination>
             </md-card-content>
         </md-card>
 

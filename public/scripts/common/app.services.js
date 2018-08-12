@@ -29,9 +29,21 @@
             return deffered.promise;
         }
 
-        scope.list_users = function (){
+        scope.list_users = function (page, limit){
             var deffered = $q.defer();
-            $http({method: 'GET', url: appConfig.apiBaseUrl + 'users/all_users'}).
+            $http({method: 'GET', url: appConfig.apiBaseUrl + 'users/all_users?page=' + page + '&limit=' + limit}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
+        scope.user_count = function (){
+            var deffered = $q.defer();
+            $http({method: 'GET', url: appConfig.apiBaseUrl + 'users/users_count'}).
             then(function(data, status, headers, config) {
                 deffered.resolve(data.data);
             }).

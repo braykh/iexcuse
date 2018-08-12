@@ -29,10 +29,23 @@ class Users extends \Restserver\Libraries\REST_Controller {
         $this->load->helper('cookie');
     }
 
-    public function all_users_get()
-    {
-        $users = $this->users_model->get_users();
-        $this->response($users, 200);
+    public function all_users_get(){
+        if($this->session->userdata('user_id')){
+            $data = $this->get();
+            $users = $this->users_model->get_users($data['page'], $data['limit']);
+            $this->response($users, 200);
+        }else{
+            $this->response(array("data" => "User does not have permissions."), 200);
+        }
+    }
+
+    public function users_count_get(){
+        if($this->session->userdata('user_id')){
+            $count = $this->users_model->get_users_count();
+            $this->response(array("count" => $count), 200);
+        }else{
+            $this->response(array("data" => "User does not have permissions."), 200);
+        } 
     }
 
     public function get_current_get(){

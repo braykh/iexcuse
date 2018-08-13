@@ -16,6 +16,7 @@
         'app.directives',
         'app.services',
         'app.users.ctrls',
+        'app.categories.ctrls',
         // ui
         'app.ui.ctrls',
         // forms
@@ -97,7 +98,7 @@
             'tables',
             'charts/c3', 'charts/sparklines',
             'pages/signin', 'pages/register', 'pages/forget-pass', 'pages/404', 'pages/timeline', 'pages/search', 'pages/invoice',
-            'users'
+            'users', 'categories'
 
         ];
 
@@ -1187,6 +1188,24 @@
         };
 
 
+    }])
+
+
+})()
+;;(function() {
+    'use strict';
+
+    angular.module('app.categories.ctrls', [])
+
+    .controller('CategoriesCtrl', ['$scope', function($scope) {
+
+    	// $scope.listCategories = function() {
+	        // CategoriesService.list_categories().then(function (data){
+	        //     $scope.categories = data;
+	        //     console.log($scope.categories);
+	        // });
+	    // };
+	    
     }])
 
 

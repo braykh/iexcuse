@@ -15,10 +15,9 @@
     	$scope.listUsers = function(page, limit) {
 	        AuthService.list_users(page, limit).then(function (data){
 	            $scope.users = data;
-	            console.log($scope.users);
 	        });
 	    };
-	    
+
 	    $scope.listUsers(0, $scope.query.limit);    
 
         AuthService.user_count().then(function (data){

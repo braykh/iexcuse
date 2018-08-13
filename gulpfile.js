@@ -22,7 +22,7 @@ const paths = {
         'md-data-table.min.js',
         'ocLazyLoad.min.js'
     ],
-    scripts: ['app.js', 'common/*.js', 'ui/*.js', 'forms/*.js', 'tables/*.js', 'users/*.js'],
+    scripts: ['app.js', 'common/*.js', 'ui/*.js', 'forms/*.js', 'tables/*.js', 'users/*.js', 'categories/*.js'],
     sass: ['public/styles/**/*.scss'],
     jsLibsDir: path.resolve('public/scripts/libs'),
     jsScriptsDir: path.resolve('public/scripts'),

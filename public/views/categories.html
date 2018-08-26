@@ -16,25 +16,34 @@
                         <thead md-head>
                             <tr md-row>
                                 <th md-column></th>
-                                <th md-column>Post</th>
-                                <th md-column>Author</th>
-                                <th md-column>Categories</th>
-                                <th md-column>Tags</th>
-                                <th md-column>Date</th>
+                                <th md-column>Category ID</th>
+                                <th md-column>Category Name</th>
+                                <th md-column>Active</th>
+                                <th md-column>Created</th>
+                                <th md-column>Options</th>
                             </tr>
                         </thead>
                         <tbody md-body>
-                            <tr md-row ng-repeat="data in staticData">
+                            <tr md-row ng-repeat="data in categories">
 								<td md-cell>
 									<md-checkbox></md-checkbox>
 								</td>
-								<td md-cell>{{data.post}}</td>
-								<td md-cell>{{data.author}}</td>
-								<td md-cell>{{data.categories}}</td>
-                                <td md-cell>
-                                    <small ng-repeat="tag in data.tags" style="border-radius: 2px; padding: 2px 4px; margin-right: 4px" md-colors="{background: data.tagColor}">{{tag}}</small>
+								<td md-cell>{{data.id}}</td>
+								<td md-cell>{{data.name}}</td>
+								<td md-cell>
+                                    <md-checkbox ng-model="data.active" class="md-primary"></md-checkbox>
                                 </td>
-								<td md-cell>{{data.date}}</td>
+								<td md-cell>{{data.created}}</td>
+                                <td md-cell>
+                                    <md-button class="md-raised md-icon-button" md-colors="{background: 'red-600'}">
+                                        <md-icon class="ion-md-close md-title" style="color: #fff"></md-icon>
+                                    </md-button>
+
+                                    <md-button class="md-raised md-icon-button" md-colors="{background: 'green'}">
+                                        <md-icon class="ion-md-create md-title" style="color: #fff"></md-icon>
+                                    </md-button>
+                                     
+                                </td
 							</tr>
                         </tbody>
                     </table>

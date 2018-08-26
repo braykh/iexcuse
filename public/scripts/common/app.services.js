@@ -84,5 +84,25 @@
 
     }])
 
+    .factory('CategoriesService', ['$http', '$q', 'appConfig', function($http, $q, appConfig) {
+        var scope = {};
+        scope.user = {};
+
+        scope.list_categories = function (){
+            var deffered = $q.defer();
+            $http({method: 'GET', url: appConfig.apiBaseUrl + 'categories/all_categories'}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
+        return scope;
+
+    }])
+
 
 })()

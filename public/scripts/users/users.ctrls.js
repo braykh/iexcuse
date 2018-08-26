@@ -7,9 +7,9 @@
     .controller('UsersCtrl', ['$scope', 'AuthService', '$timeout', function($scope, AuthService, $timeout) {
 
     	$scope.selected = [];
-        $scope.limitOptions = [1, 2];
+        $scope.limitOptions = [5, 10, 15];
         $scope.query = {
-            order: 'id', limit: 1, page: 1
+            order: 'id', limit: 5, page: 1
         };
 
     	$scope.listUsers = function(page, limit) {

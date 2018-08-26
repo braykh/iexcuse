@@ -3,14 +3,15 @@
 
     angular.module('app.categories.ctrls', [])
 
-    .controller('CategoriesCtrl', ['$scope', function($scope) {
+    .controller('CategoriesCtrl', ['$scope', 'CategoriesService', function($scope, CategoriesService) {
 
-    	// $scope.listCategories = function() {
-	        // CategoriesService.list_categories().then(function (data){
-	        //     $scope.categories = data;
-	        //     console.log($scope.categories);
-	        // });
-	    // };
+    	$scope.listCategories = function() {
+	        CategoriesService.list_categories().then(function (data){
+	            $scope.categories = data;
+	            console.log($scope.categories);
+	        });
+	    };
+	    $scope.listCategories();
 	    
     }])
 

@@ -549,6 +549,26 @@
 
     }])
 
+    .factory('CategoriesService', ['$http', '$q', 'appConfig', function($http, $q, appConfig) {
+        var scope = {};
+        scope.user = {};
+
+        scope.list_categories = function (){
+            var deffered = $q.defer();
+            $http({method: 'GET', url: appConfig.apiBaseUrl + 'categories/all_categories'}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
+        return scope;
+
+    }])
+
 
 })()
 ;;(function() {
@@ -1148,18 +1168,17 @@
     .controller('UsersCtrl', ['$scope', 'AuthService', '$timeout', function($scope, AuthService, $timeout) {
 
     	$scope.selected = [];
-        $scope.limitOptions = [1, 2];
+        $scope.limitOptions = [5, 10, 15];
         $scope.query = {
-            order: 'id', limit: 1, page: 1
+            order: 'id', limit: 5, page: 1
         };
 
     	$scope.listUsers = function(page, limit) {
 	        AuthService.list_users(page, limit).then(function (data){
 	            $scope.users = data;
-	            console.log($scope.users);
 	        });
 	    };
-	    
+
 	    $scope.listUsers(0, $scope.query.limit);    
 
         AuthService.user_count().then(function (data){
@@ -1197,14 +1216,15 @@
 
     angular.module('app.categories.ctrls', [])
 
-    .controller('CategoriesCtrl', ['$scope', function($scope) {
+    .controller('CategoriesCtrl', ['$scope', 'CategoriesService', function($scope, CategoriesService) {
 
-    	// $scope.listCategories = function() {
-	        // CategoriesService.list_categories().then(function (data){
-	        //     $scope.categories = data;
-	        //     console.log($scope.categories);
-	        // });
-	    // };
+    	$scope.listCategories = function() {
+	        CategoriesService.list_categories().then(function (data){
+	            $scope.categories = data;
+	            console.log($scope.categories);
+	        });
+	    };
+	    $scope.listCategories();
 	    
     }])
 

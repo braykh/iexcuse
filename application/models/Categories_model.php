@@ -20,6 +20,23 @@ class Categories_model extends CI_Model {
         return $data;
     }
 
+    function update_category ($id, $cat) {
+        $category = array(
+           'name' => $cat["name"],
+           'active' => $cat["active"]
+        );
+        $this->db->where('id', $id);
+        $query = $this->db->update('categories', $category);
+        if($query){
+            $this->db->where('id', $id);
+            $query2 = $this->db->get('categories');          
+            $data = $query2->result_array();
+            return $data;
+        }else{
+            return false;
+        }
+    }
+
 
 }
 

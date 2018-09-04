@@ -565,6 +565,18 @@
             return deffered.promise;
         }
 
+        scope.update_category = function (cat){
+            var deffered = $q.defer();
+            $http({method: 'POST', url: appConfig.apiBaseUrl + 'categories/update_category', data: cat}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
         return scope;
 
     }])
@@ -1225,6 +1237,16 @@
 	        });
 	    };
 	    $scope.listCategories();
+
+	    $scope.updateCat = function(cat) {
+	    	
+	        CategoriesService.update_category(cat).then(function (data){
+	        	if(data.id){
+	        		cat = data;
+	        	}
+	            console.log(data);
+	        });
+	    };
 	    
     }])
 

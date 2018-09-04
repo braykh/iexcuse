@@ -12,6 +12,16 @@
 	        });
 	    };
 	    $scope.listCategories();
+
+	    $scope.updateCat = function(cat) {
+	    	
+	        CategoriesService.update_category(cat).then(function (data){
+	        	if(data.id){
+	        		cat = data;
+	        	}
+	            console.log(data);
+	        });
+	    };
 	    
     }])
 

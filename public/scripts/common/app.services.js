@@ -100,6 +100,18 @@
             return deffered.promise;
         }
 
+        scope.update_category = function (cat){
+            var deffered = $q.defer();
+            $http({method: 'POST', url: appConfig.apiBaseUrl + 'categories/update_category', data: cat}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
         return scope;
 
     }])

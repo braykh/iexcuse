@@ -34,4 +34,13 @@ class Categories extends \Restserver\Libraries\REST_Controller {
         $this->response($categories, 200); 
     }
 
+    public function update_category_post(){
+        if($this->session->userdata('user_id')){
+            $data = $this->post();
+            $this->response($this->categories_model->update_category($data["id"],$data),200);
+        }else{
+            $this->response(array("data" => "User does not have permissions."), 200);
+        }
+    }
+
 }

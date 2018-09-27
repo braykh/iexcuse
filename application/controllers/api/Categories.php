@@ -43,4 +43,22 @@ class Categories extends \Restserver\Libraries\REST_Controller {
         }
     }
 
+    public function create_category_post(){
+        if($this->session->userdata('user_id')){
+            $data = $this->post();
+            $this->response($this->categories_model->create_category($data),200);
+        }else{
+            $this->response(array("data" => "User does not have permissions."), 200);
+        }
+    }
+
+    public function delete_category_post(){
+        if($this->session->userdata('user_id')){
+            $data = $this->post();
+            $this->response($this->categories_model->delete_category($data["id"]),200);
+        }else{
+            $this->response(array("data" => "User does not have permissions."), 200);
+        }
+    }
+
 }

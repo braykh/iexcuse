@@ -33,7 +33,16 @@
     }])
 
 
-    .controller('DashboardCtrl', ['$scope', function($scope) {
+    .controller('DashboardCtrl', ['$scope', 'AuthService', 'ExcusesService', function($scope, AuthService, ExcusesService) {
+
+        AuthService.user_count().then(function (data){
+            $scope.users_count = data;
+        });
+
+        ExcusesService.excuses_count().then(function (data){
+            $scope.excusesCount = data;
+        });
+
         // === weekly growth
         $scope.weeklygrowthconfig = {
             data: {

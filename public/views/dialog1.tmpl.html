@@ -1,0 +1,60 @@
+<md-dialog>
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools" style="min-width: 500px;">
+        <h2>Create Excuse</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon class="ion-md-close md-title" style="color: #fff"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content" > 
+        <h2>Create your Excuse</h2>
+        <div layout-gt-sm="row" layout-margin>
+          <!-- floating label -->
+          <md-input-container class="md-block" flex-gt-sm>
+              <label>Title</label>
+              <input type="text"/>
+          </md-input-container>
+          
+        </div>
+
+        <!-- textarea (no resize) -->
+        <md-input-container class="md-block" layout-margin md-no-resize="true">
+            <label>Description</label>
+            <textarea ng-model="inputdemo.textarea" md-maxlength="100" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+
+        <!-- radios -->
+        <div flex layout="column">
+            <div><strong class="text-bold">Category</strong></div>
+            <br />
+            <md-radio-group ng-model="radio.group">
+
+                <md-radio-button value="{{category.id}}" ng-repeat="category in categories">{{category.name}}</md-radio-button>
+                <!-- <md-radio-button value="Banana"> Banana </md-radio-button>
+                <md-radio-button value="Mango">Mango</md-radio-button>
+                <md-radio-button value="Pineapple">Pineapple</md-radio-button> -->
+
+            </md-radio-group>
+            <p><strong>Selected Value: </strong><span>{{ radio.group }}</span> </p>
+        </div>
+
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer('not useful')">
+       Cancel
+      </md-button>
+      <md-button ng-click="answer('useful')">
+        Create
+      </md-button>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>

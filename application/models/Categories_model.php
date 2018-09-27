@@ -37,6 +37,25 @@ class Categories_model extends CI_Model {
         }
     }
 
+    function create_category ($cat) {
+        $query = $this->db->insert('categories', $cat);
+        if($query){
+            return $query;
+        }else{
+            return false;
+        }
+    }
+
+    function delete_category ($id) {
+        $this->db->where('id', $id);
+        $query = $this->db->delete('categories');
+        if($query){
+            return $query;
+        }else{
+            return false;
+        }
+    }
+
 
 }
 

@@ -86,7 +86,7 @@
 
     .factory('CategoriesService', ['$http', '$q', 'appConfig', function($http, $q, appConfig) {
         var scope = {};
-        scope.user = {};
+        scope.category = {};
 
         scope.list_categories = function (){
             var deffered = $q.defer();
@@ -111,6 +111,98 @@
             });
             return deffered.promise;
         }
+
+        scope.create_category = function (cat){
+            var deffered = $q.defer();
+            $http({method: 'POST', url: appConfig.apiBaseUrl + 'categories/create_category', data: cat}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
+        scope.delete_category = function (cat){
+            var deffered = $q.defer();
+            $http({method: 'POST', url: appConfig.apiBaseUrl + 'categories/delete_category', data: cat}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
+        return scope;
+
+    }])
+
+    .factory('ExcusesService', ['$http', '$q', 'appConfig', function($http, $q, appConfig) {
+        var scope = {};
+        scope.excuse = {};
+
+        scope.list_excuses = function (page, limit){
+            var deffered = $q.defer();
+            $http({method: 'GET', url: appConfig.apiBaseUrl + 'excuses/all_excuses?page=' + page + '&limit=' + limit}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
+        scope.excuses_count = function (){
+            var deffered = $q.defer();
+            $http({method: 'GET', url: appConfig.apiBaseUrl + 'excuses/excuses_count'}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
+
+        // scope.update_category = function (cat){
+        //     var deffered = $q.defer();
+        //     $http({method: 'POST', url: appConfig.apiBaseUrl + 'categories/update_category', data: cat}).
+        //     then(function(data, status, headers, config) {
+        //         deffered.resolve(data.data);
+        //     }).
+        //     catch(function(data, status, headers, config) {
+        //         deffered.reject(data);
+        //     });
+        //     return deffered.promise;
+        // }
+
+        // scope.create_category = function (cat){
+        //     var deffered = $q.defer();
+        //     $http({method: 'POST', url: appConfig.apiBaseUrl + 'categories/create_category', data: cat}).
+        //     then(function(data, status, headers, config) {
+        //         deffered.resolve(data.data);
+        //     }).
+        //     catch(function(data, status, headers, config) {
+        //         deffered.reject(data);
+        //     });
+        //     return deffered.promise;
+        // }
+
+        // scope.delete_category = function (cat){
+        //     var deffered = $q.defer();
+        //     $http({method: 'POST', url: appConfig.apiBaseUrl + 'categories/delete_category', data: cat}).
+        //     then(function(data, status, headers, config) {
+        //         deffered.resolve(data.data);
+        //     }).
+        //     catch(function(data, status, headers, config) {
+        //         deffered.reject(data);
+        //     });
+        //     return deffered.promise;
+        // }
 
         return scope;
 

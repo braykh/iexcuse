@@ -1,0 +1,68 @@
+<div class="page page-tables" layout-gt-sm="column" ng-controller="ExcusesCtrl">
+
+    <div flex>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-subhead text-uppercase"><md-button class="md-primary md-raised" ng-click="showAdvanced($event)">Create Excuse</md-button></span>
+
+                    <md-divider></md-divider>
+
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+
+                <md-table-container>
+                    <table md-table  multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                        <thead ng-if="!options.decapitate" md-head md-order="query.order" md-or-reorder="onReorder">
+                            <tr md-row>
+                                <th md-column><span>Excuse ID</span></th>
+                                <th md-column><span>Title</span></th>
+                                <th md-column><span>Description</span></th>
+                                <th md-column><span>Category</span></th>
+                                <th md-column><span>Active</span></th>
+                                <th md-column>Created</th>
+                                <th md-column>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row  md-select-id="id" data-md-on-select="log" md-on-deselect="deselect" md-auto-select="options.autoSelect" data-ng-repeat="excuse in excuses | filter: filter.search | orderBy: query.order">
+                                <td md-cell>{{excuse.id}}</td>
+                                <!-- <td md-cell>
+                                  <md-select ng-model="dessert.type" placeholder="Other">
+                                    <md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
+                                  </md-select>
+                                </td> -->
+                                <td md-cell>{{excuse.title}}</td>
+                                <td md-cell>{{excuse.description | limitTo: 70}}<span ng-if="excuse.description.length > 70">...</span></td>
+                                <td md-cell>{{excuse.name}}</td>
+                                <td md-cell><md-checkbox ng-model="excuse.active" class="md-primary" ng-change="updateExcuse(data);"></md-checkbox></td>
+                                <td md-cell>{{excuse.created}}</td>
+                                <td md-cell>
+                                    <!-- <md-button class="md-primary md-raised md-small">Small</md-button> -->
+                                    <md-button class="md-raised md-small" md-colors="{background: 'red-600'}" ng-click="deleteExcuse(data)">
+                                        <md-icon class="ion-md-close md-title" style="color: #fff"></md-icon>
+                                        <span style="color: #fff">Delete</span>
+                                    </md-button>
+
+                                    <md-button class="md-raised md-small" md-colors="{background: 'green'}" ng-click="promptUpdateExcuse($event, data)">
+                                        <md-icon class="ion-md-create md-title" style="color: #fff"></md-icon>
+                                        <span style="color: #fff">Change</span>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{excusesCount.count}}" md-on-paginate="onPaginate" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+
+            </md-card-content>
+
+        </md-card>
+
+
+
+    </div>
+
+</div>

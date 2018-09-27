@@ -17,6 +17,7 @@
         'app.services',
         'app.users.ctrls',
         'app.categories.ctrls',
+        'app.excuses.ctrls',
         // ui
         'app.ui.ctrls',
         // forms
@@ -98,7 +99,7 @@
             'tables',
             'charts/c3', 'charts/sparklines',
             'pages/signin', 'pages/register', 'pages/forget-pass', 'pages/404', 'pages/timeline', 'pages/search', 'pages/invoice',
-            'users', 'categories'
+            'users', 'categories', 'excuses'
 
         ];
 

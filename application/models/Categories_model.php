@@ -8,6 +8,7 @@ class Categories_model extends CI_Model {
 	}
 	
     function get_categories () {
+        $this->db->order_by("id", "desc");
         $query = $this->db->get('categories');
         $data = $query->result_array();
         foreach ($data as $key => $value) {

@@ -7,12 +7,13 @@ class Excuses_model extends CI_Model {
 		$this->load->library('session');
 	}
 	
-    function get_excuses () {
+    function get_excuses ($page, $limit) {
 
         $this->db->select('categories.name, excuses.created, excuses.id, excuses.active, excuses.title, excuses.description, excuses.category_id');
         $this->db->join('categories', 'categories.id = excuses.category_id');
-
-        $query = $this->db->get('excuses');
+        $this->db->order_by("id", "desc");
+        $query = $this->db->get('excuses', $limit, $page * $limit);
+        
         $data = $query->result_array();
         foreach ($data as $key => $value) {
         	if ($value['active'] == 1) {
@@ -46,14 +47,14 @@ class Excuses_model extends CI_Model {
     //     }
     // }
 
-    // function create_category ($cat) {
-    //     $query = $this->db->insert('categories', $cat);
-    //     if($query){
-    //         return $query;
-    //     }else{
-    //         return false;
-    //     }
-    // }
+    function create_excuse ($excuse) {
+        $query = $this->db->insert('excuses', $excuse);
+        if($query){
+            return $query;
+        }else{
+            return false;
+        }
+    }
 
     // function delete_category ($id) {
     //     $this->db->where('id', $id);

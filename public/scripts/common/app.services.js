@@ -180,17 +180,17 @@
         //     return deffered.promise;
         // }
 
-        // scope.create_category = function (cat){
-        //     var deffered = $q.defer();
-        //     $http({method: 'POST', url: appConfig.apiBaseUrl + 'categories/create_category', data: cat}).
-        //     then(function(data, status, headers, config) {
-        //         deffered.resolve(data.data);
-        //     }).
-        //     catch(function(data, status, headers, config) {
-        //         deffered.reject(data);
-        //     });
-        //     return deffered.promise;
-        // }
+        scope.create_excuse = function (excuse){
+            var deffered = $q.defer();
+            $http({method: 'POST', url: appConfig.apiBaseUrl + 'excuses/create_excuse', data: excuse}).
+            then(function(data, status, headers, config) {
+                deffered.resolve(data.data);
+            }).
+            catch(function(data, status, headers, config) {
+                deffered.reject(data);
+            });
+            return deffered.promise;
+        }
 
         // scope.delete_category = function (cat){
         //     var deffered = $q.defer();

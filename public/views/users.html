@@ -24,7 +24,7 @@
                             </tr>
                         </thead>
                         <tbody md-body>
-                            <tr md-row md-select="user" md-select-id="id" data-md-on-select="log" md-on-deselect="deselect" md-auto-select="options.autoSelect" data-ng-repeat="user in users | filter: filter.search | orderBy: query.order">
+                            <tr md-row md-select="user" md-select-id="id" data-md-on-select="log" md-on-deselect="deselect" md-auto-select="options.autoSelect" data-ng-repeat="user in users | filter: filter.search | orderBy: sorterFunc: true">
                                 <td md-cell>{{user.id}}</td>
                                 <!-- <td md-cell>
                                   <md-select ng-model="dessert.type" placeholder="Other">

@@ -14,7 +14,7 @@
             <md-card-content>
 
                 <md-table-container>
-                    <table md-table  multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                    <table md-table  multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise" >
                         <thead ng-if="!options.decapitate" md-head md-order="query.order" md-or-reorder="onReorder">
                             <tr md-row>
                                 <th md-column><span>Excuse ID</span></th>
@@ -27,8 +27,8 @@
                             </tr>
                         </thead>
                         <tbody md-body>
-                            <tr md-row  md-select-id="id" data-md-on-select="log" md-on-deselect="deselect" md-auto-select="options.autoSelect" data-ng-repeat="excuse in excuses | filter: filter.search | orderBy: query.order">
-                                <td md-cell>{{excuse.id}}</td>
+                            <tr md-row  md-select-id="id" data-md-on-select="log" md-on-deselect="deselect" md-auto-select="options.autoSelect" data-ng-repeat="excuse in excuses | filter: filter.search | orderBy: sorterFunc: true">
+                                <td md-cell>{{excuse.id | number}}</td>
                                 <!-- <td md-cell>
                                   <md-select ng-model="dessert.type" placeholder="Other">
                                     <md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
@@ -37,7 +37,7 @@
                                 <td md-cell>{{excuse.title}}</td>
                                 <td md-cell>{{excuse.description | limitTo: 70}}<span ng-if="excuse.description.length > 70">...</span></td>
                                 <td md-cell>{{excuse.name}}</td>
-                                <td md-cell><md-checkbox ng-model="excuse.active" class="md-primary" ng-change="updateExcuse(data);"></md-checkbox></td>
+                                <td md-cell><md-checkbox aria-label="" ng-model="excuse.active" class="md-primary" ng-change="updateExcuse(data);"></md-checkbox></td>
                                 <td md-cell>{{excuse.created}}</td>
                                 <td md-cell>
                                     <!-- <md-button class="md-primary md-raised md-small">Small</md-button> -->

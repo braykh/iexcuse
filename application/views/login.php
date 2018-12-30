@@ -56,7 +56,7 @@
 
 				                <md-input-container class="md-block">
 				                    <label>Password</label>
-				                    <input type="password"  ng-model="login.pass" name="password" placeholder="........" required ng-minlength="8" style="margin-bottom: 2px"/>
+				                    <input type="password"  ng-model="login.pass" name="password" placeholder="........" required ng-minlength="6" style="margin-bottom: 2px"/>
 				                    <!-- <div class="md-caption" style="text-align: right;"><a href="#/pages/forget-pass">Forget Password?</a></div> -->
 				                </md-input-container>
 

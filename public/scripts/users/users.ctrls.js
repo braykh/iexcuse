@@ -25,7 +25,7 @@
         });
 
         $scope.options = {
-            rowSelection: true,
+            rowSelection: false,
             multiSelect: true,
             autoSelect: true,
             decapitate: false,
@@ -43,6 +43,9 @@
             $scope.promise = $timeout(function () {
             	$scope.listUsers(page - 1, limit);
             }, 1000);
+        };
+        $scope.sorterFunc = function(user){
+            return parseInt(user.id);
         };
 
 

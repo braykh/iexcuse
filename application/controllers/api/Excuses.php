@@ -30,7 +30,8 @@ class Excuses extends \Restserver\Libraries\REST_Controller {
     }
 
     public function all_excuses_get(){
-        $excuses = $this->excuses_model->get_excuses();
+        $data = $this->get();
+        $excuses = $this->excuses_model->get_excuses($data['page'], $data['limit']);
         $this->response($excuses, 200); 
     }
 
@@ -48,14 +49,14 @@ class Excuses extends \Restserver\Libraries\REST_Controller {
     //     }
     // }
 
-    // public function create_category_post(){
-    //     if($this->session->userdata('user_id')){
-    //         $data = $this->post();
-    //         $this->response($this->categories_model->create_category($data),200);
-    //     }else{
-    //         $this->response(array("data" => "User does not have permissions."), 200);
-    //     }
-    // }
+    public function create_excuse_post(){
+        if($this->session->userdata('user_id')){
+            $data = $this->post();
+            $this->response($this->excuses_model->create_excuse($data),200);
+        }else{
+            $this->response(array("data" => "User does not have permissions."), 200);
+        }
+    }
 
     // public function delete_category_post(){
     //     if($this->session->userdata('user_id')){

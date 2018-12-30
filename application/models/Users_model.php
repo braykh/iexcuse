@@ -8,7 +8,7 @@ class Users_model extends CI_Model {
 	}
 	
     function get_users ($page, $limit) {
-        $query = $this->db->get('users', $limit, $page);
+        $query = $this->db->get('users', $limit, $page * $limit);
         $data = $query->result_array();
         return $data;
     }

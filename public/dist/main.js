@@ -1423,11 +1423,6 @@
         $scope.query = {
             order: 'id', limit: 5, page: 1
         };
-        $scope.currentExcuse = {
-            category_id: '',
-            title: '',
-            description: ''
-        }
 
     	$scope.listExcuses = function(page, limit) {
 	        ExcusesService.list_excuses(page, limit).then(function (data){
@@ -1443,9 +1438,12 @@
         };
         $scope.listCategories();
 
-        ExcusesService.excuses_count().then(function (data){
-            $scope.excusesCount = data;
-        });
+        $scope.updateCount = function() {
+            ExcusesService.excuses_count().then(function (data){
+                $scope.excusesCount = data;
+            });
+        };
+        $scope.updateCount();
 
         $scope.options = {
             rowSelection: true,
@@ -1459,16 +1457,33 @@
         };
 
         $scope.onPaginate = function(page, limit) {
-            console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
-            console.log('Page: ' + page + ' Limit: ' + limit);
-            console.log($scope.selected);
+            // console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
+            // console.log('Page: ' + page + ' Limit: ' + limit);
+            // console.log($scope.selected);
 
             $scope.promise = $timeout(function () {
                 $scope.listExcuses(page - 1, limit);
             }, 1000);
         };
 
-        $scope.showAdvanced = function(ev) {
+        $scope.createExcuse = function(excuse) {
+            if(excuse.title && excuse.description && excuse.category_id){
+                ExcusesService.create_excuse(excuse).then(function (result){
+                    if(result){
+                        $scope.listExcuses(0, $scope.query.limit);
+                        $scope.updateCount();
+                        $scope.query.page = 1;
+                    }
+                });
+            }
+        };
+
+        $scope.showAdvanced = function(ev, excuse) {
+            if(excuse.id){
+                $scope.currentExcuse = excuse;
+            }else{
+                $scope.currentExcuse = {};
+            }
             var parentEl = angular.element(document.body);
             $mdDialog.show({
                 controller: ["$scope", "$mdDialog", function($scope, $mdDialog) {
@@ -1479,18 +1494,14 @@
                         $mdDialog.cancel();
                     };
                     $scope.answer = function(data) {
-                        console.log(data);
-                        if(data.title && data.description && data.category_id){
+                        if(data.id){
+                            console.log('update excuse');
+                        }else{
                             data.active = 0;
-                            ExcusesService.create_excuse(data).then(function (result){
-                                if(result){
-                                    $scope.listExcuses(0, $scope.query.limit);
-                                    // update count!!!
-                                }
-                            });
-                            $mdDialog.hide();
+                            $scope.createExcuse(data);
                         }
-                        
+
+                        $mdDialog.hide();
                     };
                 }],
                 templateUrl: 'public/views/dialog1.tmpl.html',

@@ -4,7 +4,7 @@
         <md-card>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-subhead text-uppercase"><md-button class="md-primary md-raised" ng-click="showAdvanced($event)">Create Excuse</md-button></span>
+                    <span class="md-subhead text-uppercase"><md-button class="md-primary md-raised" ng-click="showAdvanced($event, '')">Create Excuse</md-button></span>
 
                     <md-divider></md-divider>
 
@@ -37,7 +37,7 @@
                                 <td md-cell>{{excuse.title}}</td>
                                 <td md-cell>{{excuse.description | limitTo: 70}}<span ng-if="excuse.description.length > 70">...</span></td>
                                 <td md-cell>{{excuse.name}}</td>
-                                <td md-cell><md-checkbox aria-label="" ng-model="excuse.active" class="md-primary" ng-change="updateExcuse(data);"></md-checkbox></td>
+                                <td md-cell><md-checkbox aria-label="excuseStatus" ng-model="excuse.active" class="md-primary" ng-change="updateExcuse(data);"></md-checkbox></td>
                                 <td md-cell>{{excuse.created}}</td>
                                 <td md-cell>
                                     <!-- <md-button class="md-primary md-raised md-small">Small</md-button> -->
@@ -46,7 +46,7 @@
                                         <span style="color: #fff">Delete</span>
                                     </md-button>
 
-                                    <md-button class="md-raised md-small" md-colors="{background: 'green'}" ng-click="promptUpdateExcuse($event, data)">
+                                    <md-button class="md-raised md-small" md-colors="{background: 'green'}" ng-click="showAdvanced($event, excuse)">
                                         <md-icon class="ion-md-create md-title" style="color: #fff"></md-icon>
                                         <span style="color: #fff">Change</span>
                                     </md-button>
